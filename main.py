@@ -454,9 +454,29 @@ async def upload(bot: Client, m: Message):
         return
 
     editable = await m.reply_text(f"⚡𝗦𝗘𝗡𝗗 𝗧𝗫𝗧 𝗙𝗜𝗟𝗘⚡")
-    input: Message = await bot.listen(editable.chat.id)
-    x = await input.download()
-    await input.delete(True)
+    
+    try:
+        # Wait for user to send a document or text
+        input_msg = await bot.wait_for(
+            filters.document | filters.text,
+            chat_id=m.chat.id,
+            timeout=300
+        )
+        
+        if input_msg.document:
+            x = await input_msg.download()
+            file_name = input_msg.document.file_name
+        else:
+            # Handle text input if needed
+            await m.reply_text("Please send a TXT file")
+            return
+            
+    except asyncio.TimeoutError:
+        await editable.edit("Timed out waiting for file")
+        return
+        
+    await input_msg.delete()
+    await editable.delete()
     file_name, ext = os.path.splitext(os.path.basename(x))
     pdf_count = 0
     img_count = 0
