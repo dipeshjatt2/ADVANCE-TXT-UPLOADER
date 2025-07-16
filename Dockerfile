@@ -1,6 +1,6 @@
 FROM python:3.10.8-buster
 
-# Install system dependencies + Supervisor (fixed line continuations)
+# Install system dependencies + Supervisor (PROPERLY FORMATTED)
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
@@ -9,7 +9,7 @@ RUN apt-get update -y && \
         musl-dev \
         ffmpeg \
         aria2 \
-        supervisor && \  # <-- Fixed line continuation
+        supervisor && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
