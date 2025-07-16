@@ -1,17 +1,17 @@
-FROM python:3.10.8-buster
+FROM python:3.10.8-slim-buster
 
-# Install system dependencies + Supervisor (PROPERLY FORMATTED)
-RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-        gcc \
-        libffi-dev \
-        musl-dev \
-        ffmpeg \
-        aria2 \
-        supervisor && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Install system dependencies in separate RUN commands for better error handling
+RUN apt-get update -y && apt-get upgrade -y
+
+RUN apt-get install -y --no-install-recommends \
+    gcc \
+    libffi-dev \
+    musl-dev \
+    ffmpeg \
+    aria2 \
+    supervisor
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -24,11 +24,11 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY . .
 
 # Supervisor configuration
-COPY supervisord.conf /etc/supervisor/conf.d/
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Environment variables
 ENV COOKIES_FILE_PATH="youtube_cookies.txt" \
     PORT=8000
 
 # Start Supervisor
-CMD ["supervisord", "-n"]
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf", "-n"]
