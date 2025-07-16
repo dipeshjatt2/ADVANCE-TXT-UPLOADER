@@ -1,17 +1,17 @@
 FROM python:3.10.8-buster
 
-# Install system dependencies + Supervisor
+# Install system dependencies + Supervisor (fixed line continuations)
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
-    gcc \
-    libffi-dev \
-    musl-dev \
-    ffmpeg \
-    aria2 \
-    supervisor \  # <-- Added for process management
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        gcc \
+        libffi-dev \
+        musl-dev \
+        ffmpeg \
+        aria2 \
+        supervisor && \  # <-- Fixed line continuation
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
