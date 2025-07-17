@@ -488,6 +488,8 @@ async def upload(bot: Client, m: Message):
             await editable.delete()
         except:
             pass
+        except:
+            pass
             
         processing_msg = await m.reply_text("🔄 **Starting Download Process...**")
         
