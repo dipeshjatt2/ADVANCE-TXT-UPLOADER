@@ -453,13 +453,13 @@ async def upload(bot: Client, m: Message):
         await m.reply_text("**🚫You are not authorized to use this bot.**")
         return
 
-    editable = await m.reply_text(f"⚡𝗦𝗘𝗡𝗗 𝗧𝗫𝗧 𝗙𝗜𝗟𝗘⚡")
+    editable = await m.reply_text("⚡𝗦𝗘𝗡𝗗 𝗧𝗫𝗧 𝗙𝗜𝗟𝗘⚡")
     
     try:
-        # Wait for user to send a document or text
-        input_msg = await bot.wait_for(
-            filters.document | filters.text,
+        # Pyromod's listen() instead of wait_for()
+        input_msg = await bot.listen(
             chat_id=m.chat.id,
+            filters=filters.document | filters.text,
             timeout=300
         )
         
@@ -467,16 +467,16 @@ async def upload(bot: Client, m: Message):
             x = await input_msg.download()
             file_name = input_msg.document.file_name
         else:
-            # Handle text input if needed
-            await m.reply_text("Please send a TXT file")
+            await m.reply_text("❌ Please send a TXT file")
             return
             
     except asyncio.TimeoutError:
-        await editable.edit("Timed out waiting for file")
+        await editable.edit("⏳ Timed out after 5 minutes")
         return
         
     await input_msg.delete()
     await editable.delete()
+    # Continue with your existing processing logic...
     file_name, ext = os.path.splitext(os.path.basename(x))
     pdf_count = 0
     img_count = 0
