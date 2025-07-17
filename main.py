@@ -57,7 +57,7 @@ cpimg = "https://graph.org/file/5ed50675df0faf833efef-e102210eb72c1d5a17.jpg"
 
 async def show_random_emojis(message):
     emojis = ['🎊', '🔮', '😎', '⚡️', '🚀', '✨', '💥', '🎉', '🥂', '🍾', '🦠', '🤖', '❤️‍🔥', '🕊️', '💃', '🥳','🐅','🦁']
-    emoji_message = await message.reply_text(' '.join(random.choices(emojis, k=1))
+    emoji_message = await message.reply_text(' '.join(random.choices(emojis, k=1)))
     return emoji_message
     
 # Define the owner's user ID
@@ -81,7 +81,6 @@ bot = Client(
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN)
-
 # Sudo command to add/remove sudo users
 @bot.on_message(filters.command("sudo"))
 async def sudo_command(bot: Client, message: Message):
