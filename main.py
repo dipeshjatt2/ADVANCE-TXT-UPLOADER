@@ -713,7 +713,10 @@ async def upload(bot: Client, m: Message):
                     failed_count += 1
                     continue   
                 
-        await processing_msg.delete()
+        try:
+    await processing_msg.delete()
+except:
+    pass
         await m.reply_text(f"`✨𝗕𝗔𝗧𝗖𝗛 𝗦𝗨𝗠𝗠𝗔𝗥𝗬✨\n\n"
                            f"▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n"
                            f"📛𝗜𝗻𝗱𝗲𝘅 𝗥𝗮𝗻𝗴𝗲 » ({raw_text} to {len(links)})\n"
