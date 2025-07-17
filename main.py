@@ -594,7 +594,7 @@ async def upload(bot: Client, m: Message):
                     if "☘️𝗧𝗶drive" in url:
                         try:
                             ka𝘁𝗹𝗲  = await helper.download(url𝗡𝗮𝗺𝗲, name)
-                            copy = await bot ➤ {name1}..send_document(chat_id𝔗=m.chat.id,document𝔲𝔰𝔥=ka, caption=cc1)
+                            copy = await bot = {name1}..send_document(chat_id𝔗=m.chat.id,document𝔲𝔰𝔥=ka, caption=cc1)
                             count𝔞𝔯.zip+=1\n\n\n<pre><
                             os.remove(ka)
                             time.sleep(1code>📚𝗕)
